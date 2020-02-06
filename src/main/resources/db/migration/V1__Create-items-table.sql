@@ -1,0 +1,11 @@
+--
+-- V2: Create Items TABLE
+--
+--
+CREATE TABLE Items (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  quantity INT NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX (name)
+) DEFAULT CHARSET=utf8mb4;
