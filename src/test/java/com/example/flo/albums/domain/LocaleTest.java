@@ -1,10 +1,8 @@
-package com.example.flo.songs.domain;
+package com.example.flo.albums.domain;
 
 import junitparams.JUnitParamsRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -21,9 +19,9 @@ public class LocaleTest {
 
         // when
         Locale locale = new Locale("ko");
-        locale.addAlbums(album1);
-        locale.addAlbums(album2);
-        locale.addAlbums(album3);
+        locale.registerAlbum(album1);
+        locale.registerAlbum(album2);
+        locale.registerAlbum(album3);
         
         // then
         assertThat(locale).isNotNull();

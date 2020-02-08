@@ -1,7 +1,6 @@
-package com.example.flo.songs.domain;
+package com.example.flo.albums.domain;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +25,13 @@ public class Song {
     @JoinColumn(name = "album_id")
     private Album album;
 
-    public Song(String title, int track, int length, Album album) {
+    public Song(String title, int track, int length) {
         this.title = title;
         this.track = track;
         this.length = length;
+    }
+
+    public void joinAlbum(Album album) {
         this.album = album;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.flo.songs.domain;
+package com.example.flo.albums.domain;
 
 import lombok.*;
 
@@ -11,6 +11,9 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Locale {
+
+    @Transient
+    public static final String ALL = "all";
 
     @Id @GeneratedValue
     @Column(name = "locale_id")
@@ -31,8 +34,7 @@ public class Locale {
         this.countryCode = CountryCode.getEnum(countryCode);
     }
 
-    // 비즈니스 로직 //
-    public void addAlbums(Album album) {
+    public void registerAlbum(Album album) {
         this.albums.add(album);
     }
 }

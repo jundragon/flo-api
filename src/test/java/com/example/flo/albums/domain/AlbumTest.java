@@ -1,4 +1,4 @@
-package com.example.flo.songs.domain;
+package com.example.flo.albums.domain;
 
 import junitparams.JUnitParamsRunner;
 import org.junit.Test;

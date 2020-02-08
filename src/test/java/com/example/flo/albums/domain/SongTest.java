@@ -1,4 +1,4 @@
-package com.example.flo.songs.domain;
+package com.example.flo.albums.domain;
 
 import junitparams.JUnitParamsRunner;
 import org.junit.Test;
@@ -21,7 +21,8 @@ public class SongTest {
         Album album = new Album("아이유 1집");
 
         // when
-        Song song = new Song(title, track, length, album);
+        Song song = new Song(title, track, length);
+        song.joinAlbum(album);
 
         // then
         assertThat(song).isNotNull();

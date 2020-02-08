@@ -1,4 +1,4 @@
-package com.example.flo.songs.domain;
+package com.example.flo.albums.domain;
 
 import lombok.AllArgsConstructor;
 
@@ -9,6 +9,7 @@ public enum CountryCode {
     JA("ja");
 
     private String code;
+
     public String getCode() {
         return this.code;
     }
@@ -16,6 +17,6 @@ public enum CountryCode {
     public static CountryCode getEnum(String code) {
         for(CountryCode v : values())
             if(v.getCode().equalsIgnoreCase(code)) return v;
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("존재하지 않는 코드 값 입니다.");
     }
 }
