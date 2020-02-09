@@ -22,6 +22,10 @@ public class PlaylistService {
         return playlist.getId();
     }
 
+    public List<Playlist> userList(int userId) {
+        return playlistRepository.findByUserId(userId);
+    }
+
     private void validateDuplicatePlaylist(Playlist playlist) {
         List<Playlist> findPlaylists = playlistRepository.findByNameAndUserId(playlist.getName(), playlist.getUserId());
         if (!findPlaylists.isEmpty()) {
