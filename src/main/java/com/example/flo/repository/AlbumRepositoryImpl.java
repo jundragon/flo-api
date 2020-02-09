@@ -1,9 +1,9 @@
-package com.example.flo.albums.repository;
+package com.example.flo.repository;
 
-import com.example.flo.albums.domain.Album;
-import com.example.flo.albums.domain.Locale;
-import com.example.flo.albums.domain.Song;
-import com.example.flo.albums.dto.SearchCondition;
+import com.example.flo.domain.Album;
+import com.example.flo.domain.Locale;
+import com.example.flo.domain.Song;
+import com.example.flo.dto.SearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,8 +14,8 @@ import org.springframework.data.repository.support.PageableExecutionUtils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.example.flo.albums.domain.QAlbum.album;
-import static com.example.flo.albums.domain.QSong.song;
+import static com.example.flo.domain.QAlbum.album;
+import static com.example.flo.domain.QSong.song;
 import static org.springframework.util.StringUtils.hasText;
 
 public class AlbumRepositoryImpl implements AlbumRepositoryCustom {

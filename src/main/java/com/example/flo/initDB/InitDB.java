@@ -1,7 +1,7 @@
 package com.example.flo.initDB;
 
-import com.example.flo.albums.domain.Album;
-import com.example.flo.albums.domain.Song;
+import com.example.flo.domain.Album;
+import com.example.flo.domain.Song;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

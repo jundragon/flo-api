@@ -1,4 +1,4 @@
-package com.example.flo.albums.domain;
+package com.example.flo.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -28,6 +31,9 @@ public class Song {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "album_id")
     private Album album;
+
+//    @ManyToMany(mappedBy = "songs")
+//    private List<Playlist> playlists = new ArrayList<>();
 
     public Song(String title, int track, int length) {
         this.title = title;

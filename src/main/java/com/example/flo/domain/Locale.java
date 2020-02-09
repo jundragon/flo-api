@@ -1,4 +1,4 @@
-package com.example.flo.albums.domain;
+package com.example.flo.domain;
 
 import lombok.AllArgsConstructor;
 

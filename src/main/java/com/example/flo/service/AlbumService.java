@@ -1,9 +1,9 @@
-package com.example.flo.albums.service;
+package com.example.flo.service;
 
-import com.example.flo.albums.domain.Album;
-import com.example.flo.albums.domain.Song;
-import com.example.flo.albums.dto.SearchCondition;
-import com.example.flo.albums.repository.AlbumRepository;
+import com.example.flo.domain.Album;
+import com.example.flo.domain.Song;
+import com.example.flo.dto.SearchCondition;
+import com.example.flo.repository.AlbumRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

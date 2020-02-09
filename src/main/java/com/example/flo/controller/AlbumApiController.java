@@ -1,11 +1,11 @@
-package com.example.flo.albums.controller;
+package com.example.flo.controller;
 
-import com.example.flo.albums.domain.Album;
-import com.example.flo.albums.domain.Song;
-import com.example.flo.albums.dto.AlbumDto;
-import com.example.flo.albums.dto.SearchCondition;
-import com.example.flo.albums.dto.SongDto;
-import com.example.flo.albums.service.AlbumService;
+import com.example.flo.domain.Album;
+import com.example.flo.domain.Song;
+import com.example.flo.dto.AlbumDto;
+import com.example.flo.dto.SearchCondition;
+import com.example.flo.dto.SongDto;
+import com.example.flo.service.AlbumService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

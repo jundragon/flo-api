@@ -1,4 +1,4 @@
-package com.example.flo.albums.dto;
+package com.example.flo.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
