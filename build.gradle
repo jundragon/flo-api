@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'java'
     id "org.flywaydb.flyway" version "6.0.1"
+    //querydsl 추가
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -19,6 +21,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-jdbc')
     implementation('org.springframework.boot:spring-boot-devtools')
+    implementation('com.querydsl:querydsl-jpa')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     runtimeOnly('com.h2database:h2')
@@ -35,3 +38,20 @@ flyway {
     user = 'root'
     password = 'password'
 }
+
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+//querydsl 추가 끝
