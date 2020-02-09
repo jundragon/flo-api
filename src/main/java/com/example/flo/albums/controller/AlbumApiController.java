@@ -24,29 +24,37 @@ public class AlbumApiController {
     @GetMapping("/api/search")
     public Result search(SearchCondition condition) {
         List<Album> searchAlbums = albumService.searchAlbum(condition);
-        List<AlbumDto> albumDtos = searchAlbums.stream()
-                .map(a -> new AlbumDto(
-                        a.getId(),
-                        a.getTitle(),
-                        a.getSongs().stream()
-                                .map(s -> new SongDto(
-                                        s.getId(),
-                                        s.getTitle(),
-                                        s.getTrack(),
-                                        s.getLength()
-                                )).collect(Collectors.toList())
-                )).collect(Collectors.toList());
+        List<AlbumDto> albumDtos = getAlbumDtos(searchAlbums);
 
         List<Song> searchSongs = albumService.searchSong(condition);
-        List<SongDto> songDtos = searchSongs.stream()
-                .map(s -> new SongDto(
-                        s.getId(),
-                        s.getTitle(),
-                        s.getTrack(),
-                        s.getLength()
-                )).collect(Collectors.toList());
+        List<SongDto> songDtos = getSongDtos(searchSongs);
 
         return new Result(albumDtos, songDtos);
+    }
+
+    private List<SongDto> getSongDtos(List<Song> searchSongs) {
+        return searchSongs.stream()
+                    .map(s -> new SongDto(
+                            s.getId(),
+                            s.getTitle(),
+                            s.getTrack(),
+                            s.getLength()
+                    )).collect(Collectors.toList());
+    }
+
+    private List<AlbumDto> getAlbumDtos(List<Album> searchAlbums) {
+        return searchAlbums.stream()
+                    .map(a -> new AlbumDto(
+                            a.getId(),
+                            a.getTitle(),
+                            a.getSongs().stream()
+                                    .map(s -> new SongDto(
+                                            s.getId(),
+                                            s.getTitle(),
+                                            s.getTrack(),
+                                            s.getLength()
+                                    )).collect(Collectors.toList())
+                    )).collect(Collectors.toList());
     }
 
     @Data
