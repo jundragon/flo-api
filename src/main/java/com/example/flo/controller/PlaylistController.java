@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class PlaylistApiController {
+public class PlaylistController {
 
     private final PlaylistService playlistService;
 

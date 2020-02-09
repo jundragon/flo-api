@@ -25,7 +25,7 @@ import static org.springframework.hateoas.Link.*;
 
 @RestController
 @RequiredArgsConstructor
-public class AlbumApiController {
+public class AlbumController {
 
     private final AlbumService albumService;
 

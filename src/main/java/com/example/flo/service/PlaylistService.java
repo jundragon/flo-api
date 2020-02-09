@@ -1,6 +1,5 @@
 package com.example.flo.service;
 
-import com.example.flo.controller.PlaylistApiController;
 import com.example.flo.domain.Album;
 import com.example.flo.domain.Playlist;
 import com.example.flo.domain.Song;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
