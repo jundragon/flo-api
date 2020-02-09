@@ -5,7 +5,11 @@ import com.example.flo.albums.domain.Locale;
 import com.example.flo.albums.domain.Song;
 import com.example.flo.albums.dto.SearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -41,6 +45,32 @@ public class AlbumRepositoryImpl implements AlbumRepositoryCustom {
                         localeContain(condition.getLocale()),
                         songTitleContain(condition.getTitle())
                 ).fetch();
+    }
+
+    @Override
+    public Page<Album> listAlbum(String locale, Pageable pageable) {
+
+        // content 와 count 쿼리를 분리함
+        List<Album> content = getAlbums(locale, pageable);
+
+        JPAQuery<Album> countQuery = queryFactory
+                .selectFrom(album)
+                .where(
+                        localeContain(locale)
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
+    }
+
+    private List<Album> getAlbums(String locale, Pageable pageable) {
+        return queryFactory
+                    .selectFrom(album)
+                    .where(
+                            localeContain(locale)
+                    )
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetch();
     }
 
     private BooleanExpression localeContain(String locale) {

@@ -9,6 +9,9 @@ import com.example.flo.albums.service.AlbumService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,15 +24,22 @@ public class AlbumApiController {
 
     private final AlbumService albumService;
 
+    @GetMapping("/api/albums")
+    public ListResult list(String locale, Pageable pageable) {
+        Page<Album> albums = albumService.listAlbum(locale, pageable);
+        List<AlbumDto> albumDtos = getAlbumDtos(albums.getContent());
+        return new ListResult(HttpStatus.OK.value(), albumDtos);
+    }
+
     @GetMapping("/api/search")
-    public Result search(SearchCondition condition) {
+    public SearchResult search(SearchCondition condition) {
         List<Album> searchAlbums = albumService.searchAlbum(condition);
         List<AlbumDto> albumDtos = getAlbumDtos(searchAlbums);
 
         List<Song> searchSongs = albumService.searchSong(condition);
         List<SongDto> songDtos = getSongDtos(searchSongs);
 
-        return new Result(albumDtos, songDtos);
+        return new SearchResult(albumDtos, songDtos);
     }
 
     private List<SongDto> getSongDtos(List<Song> searchSongs) {
@@ -59,8 +69,17 @@ public class AlbumApiController {
 
     @Data
     @AllArgsConstructor
-    private static class Result<T> {
+    private static class SearchResult<T> {
         private T albums;
         private T songs;
     }
+
+    @Data
+    @AllArgsConstructor
+    private static class ListResult<T> {
+        private int statusCode;
+        private T data;
+    }
+
+
 }
