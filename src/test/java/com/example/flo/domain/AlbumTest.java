@@ -1,4 +1,4 @@
-package com.example.flo.albums.domain;
+package com.example.flo.domain;
 
 import junitparams.JUnitParamsRunner;
 import org.junit.Test;
@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(JUnitParamsRunner.class)
 public class AlbumTest {
-
     @Test
     public void 생성확인() throws Exception {
         // given

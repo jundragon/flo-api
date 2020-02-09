@@ -1,14 +1,11 @@
-package com.example.flo.albums.domain;
+package com.example.flo.domain;
 
-import junitparams.JUnitParamsRunner;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 
-@RunWith(JUnitParamsRunner.class)
 public class SongTest {
 
     @Test
