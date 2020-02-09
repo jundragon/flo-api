@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Profile("dev")
+//@Profile("dev")
 @Component
 @RequiredArgsConstructor
 public class InitDB {
