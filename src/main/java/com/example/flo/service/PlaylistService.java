@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,5 +32,18 @@ public class PlaylistService {
         if (!findPlaylists.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 플레이리스트입니다.");
         }
+    }
+
+    @Transactional
+    public String deleteProjectlist(Long id) {
+        Optional<Playlist> playlist = playlistRepository.findById(id);
+
+        if (!playlist.isPresent()) {
+            throw new IllegalStateException("삭제 대상 플레이리스트가 없습니다.");
+        }
+
+        String playlistName = playlist.get().getName();
+        playlistRepository.delete(playlist.get());
+        return playlistName;
     }
 }

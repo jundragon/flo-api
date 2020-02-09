@@ -22,7 +22,7 @@ public class PlaylistApiController {
     public ResultPlaylists playlists(@PathVariable("id") int id) {
         List<Playlist> userPlaylists = playlistService.userList(id);
         List<PlaylistDto> collect = userPlaylists.stream()
-                .map(p -> new PlaylistDto(p.getName(), p.getUserId()))
+                .map(p -> new PlaylistDto(p.getId(), p.getName(), p.getUserId()))
                 .collect(Collectors.toList());
         return new ResultPlaylists(collect.size(), collect);
     }
@@ -33,6 +33,12 @@ public class PlaylistApiController {
         Playlist playlist = Playlist.createPlaylist(request.getName(), request.getUserId());
         Long id = playlistService.create(playlist);
         return new CreatePlaylistResponse(id);
+    }
+
+    @DeleteMapping("/api/playlists/{id}")
+    public DeletePlaylistResponse deletePlaylist(@PathVariable("id") Long id) {
+        String playlistName = playlistService.deleteProjectlist(id);
+        return new DeletePlaylistResponse(id, playlistName);
     }
 
     @Data
@@ -53,6 +59,7 @@ public class PlaylistApiController {
     @Data
     @AllArgsConstructor
     private static class PlaylistDto {
+        private Long id;
         private String name;
         private int userId;
     }
@@ -62,5 +69,12 @@ public class PlaylistApiController {
     private static class ResultPlaylists<T> {
         private int count;
         private T playlists;
+    }
+
+    @Data
+    @AllArgsConstructor
+    private static class DeletePlaylistResponse {
+        private Long id;
+        private String name;
     }
 }
