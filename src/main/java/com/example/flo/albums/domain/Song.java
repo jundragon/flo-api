@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -18,7 +19,10 @@ public class Song {
     private Long id;
 
     private String title;
+
+    @Min(1)
     private int track;
+    @Min(0)
     private int length;
 
     @ManyToOne(fetch = LAZY)

@@ -19,7 +19,8 @@ public class Album {
 
     private String title;
 
-    @ManyToMany(mappedBy = "albums", cascade = ALL)
+    @ElementCollection(targetClass = Locale.class)
+    @Enumerated(EnumType.STRING)
     private Set<Locale> locales = new HashSet<>();
 
     @OneToMany(mappedBy = "album", cascade = ALL)
@@ -30,11 +31,6 @@ public class Album {
     }
 
     // 연관 관계 메서드 (양방향) //
-    public void addLocale(Locale locale) {
-        locales.add(locale);
-        locale.registerAlbum(this);
-    }
-
     public void addSong(Song song) {
         songs.add(song);
         song.joinAlbum(this);
@@ -45,17 +41,14 @@ public class Album {
         Album album = new Album(title);
 
         for (String locale : locales) {
-            if (locale.equals(Locale.ALL)) {
+            if (locale.equals("all")) {
                 // 모든 지역 서비스 코드를 추가
-                Set<Locale> localeList = Arrays.stream(CountryCode.values())
-                        .map(code -> new Locale(code.getCode()))
+                album.locales = Arrays.stream(Locale.values())
                         .collect(Collectors.toSet());
-
-                album.locales = localeList;
                 break;
             }
 
-            album.addLocale(new Locale(locale));
+            album.locales.add(Locale.getEnum(locale));
         }
         for (Song song : songs) {
             album.addSong(song);

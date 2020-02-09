@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Profile("dev")
 @Component
 @RequiredArgsConstructor
 public class InitDB {
@@ -33,12 +34,12 @@ public class InitDB {
     }
 
     @Component
-    @Transactional
     @RequiredArgsConstructor
     private static class InitService {
 
         private final EntityManager em;
 
+        @Transactional
         public void insertData() {
 
             ObjectMapper mapper = new ObjectMapper();
@@ -93,7 +94,5 @@ public class InitDB {
                 super();
             }
         }
-
     }
-
 }

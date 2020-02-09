@@ -1,40 +1,22 @@
 package com.example.flo.albums.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+@AllArgsConstructor
+public enum Locale {
+    KO("ko"),
+    EN("en"),
+    JA("ja");
 
-@Entity
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Locale {
+    private String code;
 
-    @Transient
-    public static final String ALL = "all";
-
-    @Id @GeneratedValue
-    @Column(name = "locale_id")
-    private Long id;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 4)
-    @NotNull
-    private CountryCode countryCode; // [all, ko, en, ja ...]
-
-    @ManyToMany
-    @JoinTable(name = "locale_album",
-            joinColumns = @JoinColumn(name = "locale_id"),
-            inverseJoinColumns = @JoinColumn(name = "album_id"))
-    private List<Album> albums = new ArrayList<>();
-
-    public Locale(String countryCode) {
-        this.countryCode = CountryCode.getEnum(countryCode);
+    public String getCode() {
+        return this.code;
     }
 
-    public void registerAlbum(Album album) {
-        this.albums.add(album);
+    public static Locale getEnum(String code) {
+        for(Locale v : values())
+            if(v.getCode().equalsIgnoreCase(code)) return v;
+        throw new IllegalArgumentException("존재하지 않는 코드 값 입니다.");
     }
 }
