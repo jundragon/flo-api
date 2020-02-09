@@ -1,13 +1,20 @@
 package com.example.flo.service;
 
+import com.example.flo.controller.PlaylistApiController;
+import com.example.flo.domain.Album;
 import com.example.flo.domain.Playlist;
+import com.example.flo.domain.Song;
+import com.example.flo.repository.AlbumRepository;
 import com.example.flo.repository.PlaylistRepository;
+import com.example.flo.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,6 +22,8 @@ import java.util.Optional;
 public class PlaylistService {
 
     private final PlaylistRepository playlistRepository;
+    private final AlbumRepository albumRepository;
+    private final SongRepository songRepository;
 
     @Transactional
     public Long create(Playlist playlist) {
@@ -45,5 +54,36 @@ public class PlaylistService {
         String playlistName = playlist.get().getName();
         playlistRepository.delete(playlist.get());
         return playlistName;
+    }
+
+    @Transactional
+    public int addSongs(Long id, Long album_id, List<Long> songs) {
+        Optional<Playlist> playlist = playlistRepository.findById(id);
+        if (!playlist.isPresent()) {
+            throw new IllegalStateException("플레이리스트가 없습니다.");
+        }
+
+        // Album 에 있는 곡을 다 가져와서 songList 에 추가
+        Optional<Album> findAlbum = albumRepository.findById(album_id);
+
+        List<Song> songList = new ArrayList<>();
+        if (findAlbum.isPresent()) {
+            songList = findAlbum.get().getSongs();
+        }
+
+        if (!songs.isEmpty()) {
+            List<Song> findSongs = songRepository.findAllByIdIn(songs);
+            if (!findSongs.isEmpty()) {
+                songList.addAll(findSongs);
+            }
+        }
+
+        if (!songList.isEmpty()) {
+            for (Song song : songList) {
+                playlist.get().addSong(song);
+            }
+        }
+
+        return songList.size(); // 추가한 곡의 갯수를 반환
     }
 }

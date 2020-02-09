@@ -32,7 +32,7 @@ public class Playlist {
             inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Song> songs = new ArrayList<>();
 
-    public void addSongs(Song song){
+    public void addSong(Song song){
         this.songs.add(song);
     }
 
@@ -44,7 +44,7 @@ public class Playlist {
         playlist.userId = userId;
 
         for (Song song : songs) {
-            playlist.addSongs(song);
+            playlist.addSong(song);
         }
 
         return playlist;

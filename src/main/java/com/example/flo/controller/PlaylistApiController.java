@@ -18,9 +18,9 @@ public class PlaylistApiController {
 
     private final PlaylistService playlistService;
 
-    @GetMapping("/api/playlists/{id}")
-    public ResultPlaylists playlists(@PathVariable("id") int id) {
-        List<Playlist> userPlaylists = playlistService.userList(id);
+    @GetMapping("/api/playlists/{userId}")
+    public ResultPlaylists playlists(@PathVariable("userId") int userId) {
+        List<Playlist> userPlaylists = playlistService.userList(userId);
         List<PlaylistDto> collect = userPlaylists.stream()
                 .map(p -> new PlaylistDto(p.getId(), p.getName(), p.getUserId()))
                 .collect(Collectors.toList());
@@ -33,6 +33,13 @@ public class PlaylistApiController {
         Playlist playlist = Playlist.createPlaylist(request.getName(), request.getUserId());
         Long id = playlistService.create(playlist);
         return new CreatePlaylistResponse(id);
+    }
+
+    @PutMapping("/api/playlists/{id}")
+    public AddPlaylistResponse updatePlaylist(@PathVariable("id") Long id,
+                                              @RequestBody @Valid AddPlaylistRequest request) {
+        int count = playlistService.addSongs(id, request.album, request.songs);
+        return new AddPlaylistResponse(count);
     }
 
     @DeleteMapping("/api/playlists/{id}")
@@ -77,4 +84,18 @@ public class PlaylistApiController {
         private Long id;
         private String name;
     }
+
+    @Data
+    @AllArgsConstructor
+    private static class AddPlaylistRequest {
+        private Long album;
+        private List<Long> songs;
+    }
+
+    @Data
+    @AllArgsConstructor
+    private static class AddPlaylistResponse {
+        private int count;
+    }
+
 }
