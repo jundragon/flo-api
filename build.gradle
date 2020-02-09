@@ -20,6 +20,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-jdbc')
+    implementation('org.springframework.boot:spring-boot-starter-hateoas')
     implementation('org.springframework.boot:spring-boot-devtools')
     implementation('com.querydsl:querydsl-jpa')
 
@@ -31,6 +32,7 @@ dependencies {
     annotationProcessor('org.projectlombok:lombok')
     testCompile('pl.pragmatists:JUnitParams:1.1.1')
     compileOnly('com.fasterxml.jackson.core:jackson-databind:2.10.2')
+    compileOnly('com.googlecode.json-simple:json-simple:1.1.1')
 }
 
 flyway {
