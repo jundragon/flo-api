@@ -22,9 +22,7 @@ public class Playlist {
     @Column(name = "playlist_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    private int userId;
 
     private String name;
 
@@ -39,11 +37,11 @@ public class Playlist {
     }
 
     // 생성 메서드 //
-    public static Playlist createPlaylist(String name, Member member, Song... songs) {
+    public static Playlist createPlaylist(String name, int userId, Song... songs) {
 
         Playlist playlist = new Playlist();
         playlist.name = name;
-        playlist.member = member;
+        playlist.userId = userId;
 
         for (Song song : songs) {
             playlist.addSongs(song);
@@ -52,11 +50,11 @@ public class Playlist {
         return playlist;
     }
 
-    public static Playlist createPlaylist(String name, Member member) {
+    public static Playlist createPlaylist(String name, int userId) {
 
         Playlist playlist = new Playlist();
         playlist.name = name;
-        playlist.member = member;
+        playlist.userId = userId;
 
         return playlist;
     }
