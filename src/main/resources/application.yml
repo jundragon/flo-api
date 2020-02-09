@@ -17,6 +17,8 @@ spring:
       pageable:
         default-page-size: 10
 
+server:
+  port: 5000
 --- # dev
 spring.profiles: dev
 
