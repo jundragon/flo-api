@@ -114,6 +114,6 @@ public class AlbumController {
     private static class ListResult<T> {
         private int statusCode;
         private T pages;
-        private T data;
+        private T albums;
     }
 }

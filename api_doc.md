@@ -164,7 +164,7 @@ http://localhost:5000/api/albums?locale=ko&page=0
         "next": "http://localhost:5000/api/albums?page=1&size=10",
         "last": "http://localhost:5000/api/albums?page=1&size=10"
     },
-    "data": [
+    "albums": [
         {
             "id": 25,
             "title": "A Hard Day's Night (1964.7), Beatles for Sale (1964.12)",
@@ -246,6 +246,8 @@ http://localhost:5000/api/albums?locale=ko&page=0
 
 | Column | Type   | Description    |
 | ------ | ------ | -------------- |
+| statusCode  | int | 상태 코드   |
+| pages  | json | 페이징 정보   |
 | albums | String | 앨범 검색 결과 |
 | songs  | String | 곡 검색 결과   |
 
