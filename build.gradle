@@ -26,11 +26,11 @@ dependencies {
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     compile('mysql:mysql-connector-java')
+    runtimeOnly('com.h2database:h2')
 
     compileOnly('org.projectlombok:lombok')
     annotationProcessor('org.projectlombok:lombok')
     testCompile('pl.pragmatists:JUnitParams:1.1.1')
-//    compile('com.fasterxml.jackson.core:jackson-databind:2.10.2')
     compile('com.googlecode.json-simple:json-simple:1.1.1')
 }
 
