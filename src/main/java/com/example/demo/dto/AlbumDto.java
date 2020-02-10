@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ public class AlbumDto {
     private String title;
     private List<SongDto> songs = new ArrayList<>();
 
-    @QueryProjection
     public AlbumDto(Long id, String title, List<SongDto> songs) {
         this.id = id;
         this.title = title;

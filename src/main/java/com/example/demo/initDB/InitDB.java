@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public class InitDB {
 
     private final InitService initService;
-    private final EntityManager em;
 
     @PostConstruct
     public void init() {
