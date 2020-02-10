@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,8 +30,15 @@ public class AlbumController {
 
     private final AlbumService albumService;
 
+    /**
+     * Album 목록 조회
+     * @param locale
+     * @param pageable
+     * @param assembler
+     * @return
+     */
     @GetMapping("/api/albums")
-    public ListResult list(String locale, Pageable pageable, PagedResourcesAssembler assembler) {
+    public ListResult list(@NotEmpty String locale, Pageable pageable, PagedResourcesAssembler assembler) {
         Page<Album> albums = albumService.listAlbum(locale, pageable);
         List<AlbumDto> albumDtos = getAlbumDtos(albums.getContent());
 
@@ -53,6 +61,11 @@ public class AlbumController {
         return page;
     }
 
+    /**
+     * Album & Song 키워드 검색
+     * @param condition
+     * @return
+     */
     @GetMapping("/api/search")
     public SearchResult search(SearchCondition condition) {
         List<Album> searchAlbums = albumService.searchAlbum(condition);

@@ -18,6 +18,11 @@ public class PlaylistController {
 
     private final PlaylistService playlistService;
 
+    /**
+     * 사용자의 플레이리스트 조회
+     * @param userId
+     * @return
+     */
     @GetMapping("/api/playlists/{userId}")
     public ResultPlaylists playlists(@PathVariable("userId") int userId) {
         List<Playlist> userPlaylists = playlistService.userList(userId);
@@ -27,6 +32,11 @@ public class PlaylistController {
         return new ResultPlaylists(collect.size(), collect);
     }
 
+    /**
+     * 플레이리스트 생성
+     * @param request
+     * @return
+     */
     @PostMapping("/api/playlists")
     public CreatePlaylistResponse createPlaylist(@RequestBody @Valid CreatePlaylistRequest request) {
 
@@ -35,6 +45,12 @@ public class PlaylistController {
         return new CreatePlaylistResponse(id);
     }
 
+    /**
+     * 플레이리스트에 곡 추가, 앨범 내 모든 곡 추가 가능
+     * @param id
+     * @param request
+     * @return
+     */
     @PutMapping("/api/playlists/{id}")
     public AddPlaylistResponse updatePlaylist(@PathVariable("id") Long id,
                                               @RequestBody @Valid AddPlaylistRequest request) {
@@ -42,11 +58,18 @@ public class PlaylistController {
         return new AddPlaylistResponse(count);
     }
 
+    /**
+     * 사용자의 플레이리스트 1건 삭제
+     * @param id
+     * @return
+     */
     @DeleteMapping("/api/playlists/{id}")
     public DeletePlaylistResponse deletePlaylist(@PathVariable("id") Long id) {
         String playlistName = playlistService.deleteProjectlist(id);
         return new DeletePlaylistResponse(id, playlistName);
     }
+
+    // TODO 테스트를 위해 아래의 DTO 밖으로 빼야 함.
 
     @Data
     @AllArgsConstructor
