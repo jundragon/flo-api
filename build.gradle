@@ -22,10 +22,10 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-jdbc')
     implementation('org.springframework.boot:spring-boot-starter-hateoas')
     implementation('org.springframework.boot:spring-boot-devtools')
-    compileOnly('com.querydsl:querydsl-jpa')
+    compile('com.querydsl:querydsl-jpa')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-    runtimeOnly('mysql:mysql-connector-java')
+    compile('mysql:mysql-connector-java')
 
     compileOnly('org.projectlombok:lombok')
     annotationProcessor('org.projectlombok:lombok')
