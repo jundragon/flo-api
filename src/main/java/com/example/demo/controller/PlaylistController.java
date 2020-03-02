@@ -4,6 +4,7 @@ import com.example.demo.domain.Playlist;
 import com.example.demo.service.PlaylistService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,12 @@ public class PlaylistController {
      * @return
      */
     @GetMapping("/api/playlists/{userId}")
-    public ResultPlaylists playlists(@PathVariable("userId") int userId) {
+    public PlaylistsResponse playlists(@PathVariable("userId") int userId) {
         List<Playlist> userPlaylists = playlistService.userList(userId);
         List<PlaylistDto> collect = userPlaylists.stream()
                 .map(p -> new PlaylistDto(p.getId(), p.getName(), p.getUserId()))
                 .collect(Collectors.toList());
-        return new ResultPlaylists(collect.size(), collect);
+        return new PlaylistsResponse(collect.size(), collect);
     }
 
     /**
@@ -72,53 +73,47 @@ public class PlaylistController {
     // TODO 테스트를 위해 아래의 DTO 밖으로 빼야 함.
 
     @Data
-    @AllArgsConstructor
     private static class CreatePlaylistResponse {
-        private Long id;
+        private final Long id;
     }
 
-    @Data
-    @AllArgsConstructor
+    @Getter
+    @RequiredArgsConstructor
     private static class CreatePlaylistRequest {
 
         @NotEmpty
-        private String name;
-        private int userId;
+        private final String name;
+        private final int userId;
     }
 
     @Data
-    @AllArgsConstructor
     private static class PlaylistDto {
-        private Long id;
-        private String name;
-        private int userId;
+        private final Long id;
+        private final String name;
+        private final int userId;
     }
 
     @Data
-    @AllArgsConstructor
-    private static class ResultPlaylists<T> {
-        private int count;
-        private T playlists;
+    private static class PlaylistsResponse<T> {
+        private final int count;
+        private final T playlists;
     }
 
     @Data
-    @AllArgsConstructor
     private static class DeletePlaylistResponse {
-        private Long id;
-        private String name;
+        private final Long id;
+        private final String name;
     }
 
-    @Data
-    @AllArgsConstructor
+    @RequiredArgsConstructor
     private static class AddPlaylistRequest {
-        private Long album;
-        private List<Long> songs;
+        private final Long album;
+        private final List<Long> songs;
     }
 
     @Data
-    @AllArgsConstructor
     private static class AddPlaylistResponse {
-        private int count;
+        private final int count;
     }
 
 }

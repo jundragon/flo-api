@@ -15,20 +15,36 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.Link.*;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 public class AlbumController {
 
     private final AlbumService albumService;
+
+    /**
+     * query parameters 요청 validate 핸들러
+     * Internal Server Error 500 -> Bad Request 400
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleConstraintViolationException(ConstraintViolationException e) {
+        return "not valid due to validation error: " + e.getMessage();
+    }
 
     /**
      * Album 목록 조회
@@ -38,7 +54,7 @@ public class AlbumController {
      * @return
      */
     @GetMapping("/api/albums")
-    public ListResult list(@NotEmpty String locale, Pageable pageable, PagedResourcesAssembler assembler) {
+    public ListResult list(@Valid @NotEmpty String locale, Pageable pageable, PagedResourcesAssembler assembler) {
         Page<Album> albums = albumService.listAlbum(locale, pageable);
         List<AlbumDto> albumDtos = getAlbumDtos(albums.getContent());
 
@@ -67,7 +83,7 @@ public class AlbumController {
      * @return
      */
     @GetMapping("/api/search")
-    public SearchResult search(SearchCondition condition) {
+    public SearchResult search(@Valid SearchCondition condition) {
         List<Album> searchAlbums = albumService.searchAlbum(condition);
         List<AlbumDto> albumDtos = getAlbumDtos(searchAlbums);
 
