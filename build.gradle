@@ -35,7 +35,7 @@ dependencies {
 }
 
 flyway {
-    url = 'jdbc:mysql://mysql-server:3306/my_database?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false'
+    url = 'jdbc:mysql://localhost:3306/flo_db?characterEncoding=UTF-8&serverTimezone=Asia/Seoul'
     user = 'root'
     password = 'password'
 }
