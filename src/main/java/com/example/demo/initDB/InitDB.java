@@ -1,7 +1,7 @@
 package com.example.demo.initDB;
 
-import com.example.demo.domain.Album;
-import com.example.demo.domain.Song;
+import com.example.demo.album.domain.Album;
+import com.example.demo.album.domain.Song;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
