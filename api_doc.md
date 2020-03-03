@@ -344,7 +344,7 @@ http://localhost:5000/api/playlists/373
 
 {
 	"album" : 1,
-	"song" : [20, 30, 40]
+	"songs" : [20, 30, 40]
 	
 }
 ```
