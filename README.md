@@ -1,5 +1,12 @@
 # FLO-API
 
+## 기술 스택
+
+- Spring Boot
+- Spring JPA
+- queryDSL: 동적 쿼리 (조회)
+- lombok
+
 ## FLO-API 주요 기능
 
 - 앨범/곡 검색
